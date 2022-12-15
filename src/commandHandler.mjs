@@ -1,5 +1,6 @@
 import { logInvalidInput } from "./log.mjs";
-import * as os from './libs/os.mjs';
+import { listDir, os } from './commands/index.js';
+import { readdir } from 'fs/promises';
 
 const commandHandler = async (command, ...args) => {
   switch (command) {
@@ -24,6 +25,15 @@ const commandHandler = async (command, ...args) => {
           logInvalidInput();
       }
     break;
+    case 'up':
+      process.chdir('../');
+      break;
+    case 'cd':
+      process.chdir(...args);
+      break;
+    case 'ls':
+      await listDir();
+      break;
   default:
     logInvalidInput();
   }
