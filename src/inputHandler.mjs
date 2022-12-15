@@ -1,15 +1,24 @@
 import commandHandler from './commandHandler.mjs';
-import logOperationFailed from './log.mjs';
+import logOperationFailed, { logInvalidInput } from './log.mjs';
+import parseTrimmedLine from './lineParser.mjs';
 
 const inputHandler = async (input, rl) => {
-  if (input.trim() === '.exit') {
+  const trimmedInput = input.trim();
+
+  if (trimmedInput === '.exit') {
     rl.close();
     
     return;
   }
 
   try {
-    await commandHandler(...input.split(' '));
+    const parsedInput = parseTrimmedLine(trimmedInput);
+
+    if (parsedInput) {
+      await commandHandler(...parsedInput);
+    } else {
+      logInvalidInput();
+    }
   } catch {
     logOperationFailed();
   }
