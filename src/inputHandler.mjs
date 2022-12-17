@@ -12,14 +12,13 @@ const inputHandler = async (input, rl) => {
   }
 
   try {
-    const parsedInput = parseTrimmedLine(trimmedInput);
+    const isSuccessfull = await commandHandler(...parseTrimmedLine(trimmedInput));
 
-    if (parsedInput) {
-      await commandHandler(...parsedInput);
-    } else {
+    if (!isSuccessfull) {
       logInvalidInput();
     }
-  } catch {
+  } catch(err) {
+    // console.log(err);
     logOperationFailed();
   }
 

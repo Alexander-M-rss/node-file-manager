@@ -1,10 +1,20 @@
-import { logInvalidInput } from "./log.mjs";
-import { listDir, os } from './commands/index.js';
-import { readdir } from 'fs/promises';
+import {
+  listDir,
+  os,
+  logFile,
+  createFile,
+  renameFile,
+  copyFile,
+  removeFile,
+  moveFile
+} from './commands/index.js';
 
 const commandHandler = async (command, ...args) => {
   switch (command) {
     case 'os':
+      if (args.length > 1) {
+        return false;
+      }
       switch (args[0]) {
         case '--EOL':
           os.logEol();
@@ -22,20 +32,41 @@ const commandHandler = async (command, ...args) => {
           os.logArchitecture();
           break;
         default:
-          logInvalidInput();
+          return false;
       }
-    break;
+    return true;
     case 'up':
+      if (args.length) {
+        return false;
+      }
       process.chdir('../');
-      break;
+      return true;
     case 'cd':
+      if (args.length !== 1) {
+        return false;
+      }
       process.chdir(...args);
-      break;
+      return true;
     case 'ls':
+      if (args.length) {
+        return false;
+      }
       await listDir();
-      break;
+      return true;
+    case 'cat':
+      return await logFile(...args);
+    case 'add':
+      return await createFile(...args);
+    case 'rn':
+      return await renameFile(...args);
+    case 'cp':
+      return await copyFile(...args);
+    case 'rm':
+      return await removeFile(...args);
+    case 'mv':
+      return await moveFile(...args);
   default:
-    logInvalidInput();
+    return false;
   }
 };
 
