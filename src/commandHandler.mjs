@@ -11,6 +11,7 @@ import {
   compress,
   decompress,
 } from './commands/index.js';
+import { sep } from 'path';
 
 const commandHandler = async (command, ...args) => {
   switch (command) {
@@ -48,7 +49,10 @@ const commandHandler = async (command, ...args) => {
       if (args.length !== 1) {
         return false;
       }
-      process.chdir(...args);
+      if (args[0].length === 2 && args[0][1] === ':') {
+        args[0] += sep;
+      }
+      process.chdir(args[0]);
       return true;
     case 'ls':
       if (args.length) {
