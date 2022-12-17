@@ -6,3 +6,4 @@ export { renameFile } from './rn.mjs';
 export { copyFile } from './cp.mjs';
 export { removeFile } from './rm.mjs';
 export { moveFile } from './mv.mjs';
+export { calcHash } from './hash.mjs';

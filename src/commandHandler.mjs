@@ -6,7 +6,8 @@ import {
   renameFile,
   copyFile,
   removeFile,
-  moveFile
+  moveFile,
+  calcHash,
 } from './commands/index.js';
 
 const commandHandler = async (command, ...args) => {
@@ -65,8 +66,10 @@ const commandHandler = async (command, ...args) => {
       return await removeFile(...args);
     case 'mv':
       return await moveFile(...args);
-  default:
-    return false;
+    case 'hash':
+      return await calcHash(...args);
+    default:
+      return false;
   }
 };
 
