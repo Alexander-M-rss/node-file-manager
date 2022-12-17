@@ -17,8 +17,7 @@ const inputHandler = async (input, rl) => {
     if (!isSuccessfull) {
       logInvalidInput();
     }
-  } catch(err) {
-    // console.log(err);
+  } catch {
     logOperationFailed();
   }
 

@@ -8,6 +8,8 @@ import {
   removeFile,
   moveFile,
   calcHash,
+  compress,
+  decompress,
 } from './commands/index.js';
 
 const commandHandler = async (command, ...args) => {
@@ -68,6 +70,10 @@ const commandHandler = async (command, ...args) => {
       return await moveFile(...args);
     case 'hash':
       return await calcHash(...args);
+    case 'compress':
+      return await compress(...args);
+    case 'decompress':
+      return await decompress(...args);
     default:
       return false;
   }

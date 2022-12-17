@@ -7,3 +7,5 @@ export { copyFile } from './cp.mjs';
 export { removeFile } from './rm.mjs';
 export { moveFile } from './mv.mjs';
 export { calcHash } from './hash.mjs';
+export { compress } from './compress.mjs';
+export { decompress } from './decompress.mjs';
